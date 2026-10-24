@@ -81,6 +81,7 @@ def ad_donor(
         partial(workflow.apply_async),
     )
 
+
 def _handle_failed_payment(donor_email: str, donor: Donor) -> None:
     """Обрабатывает случай неуспешного платежа для существующего донора."""
     if donor.subscription == SubscriptionStatuses.ACTIVE.capitalized:
@@ -183,11 +184,7 @@ def create_or_update_donor(
     email_marketing_consent: bool = False,
 ) -> None:
     """Создаем нового донора или обновляем статус существующего."""
-    donor = (
-        Donor.objects.select_for_update()
-        .filter(email=donor_email)
-        .first()
-    )
+    donor = Donor.objects.select_for_update().filter(email=donor_email).first()
     if donor is None:
         _create_new_donor(
             donor_email,
@@ -197,8 +194,7 @@ def create_or_update_donor(
         return
 
     consent_granted = (
-        email_marketing_consent is True
-        and not donor.email_marketing_consent
+        email_marketing_consent is True and not donor.email_marketing_consent
     )
     if consent_granted:
         donor.email_marketing_consent = True

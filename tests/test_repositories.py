@@ -34,12 +34,8 @@ def test_get_donors_returns_use_case_data(
     selection: str,
 ) -> None:
     """Полная и адресная выборки возвращают только разрешённые контакты."""
-    allowed = [
-        donor for donor in donors if donor.email_marketing_consent
-    ]
-    blocked = [
-        donor for donor in donors if not donor.email_marketing_consent
-    ]
+    allowed = [donor for donor in donors if donor.email_marketing_consent]
+    blocked = [donor for donor in donors if not donor.email_marketing_consent]
 
     if selection == "all":
         donor_ids = None

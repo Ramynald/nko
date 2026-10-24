@@ -476,7 +476,6 @@ class SendPaymentEmailTest(UnisenderFixtureMixin, TestCase):
             email_marketing_consent=True,
         )
 
-
     def test_sends_email_using_fetched_template(self) -> None:
         """Письмо отправляется по шаблону, полученному из Unisender."""
         send_payment_email(self.email, self.list_id)

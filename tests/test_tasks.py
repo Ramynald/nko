@@ -102,9 +102,7 @@ def test_executes_use_case(
 ) -> None:
     """Задача отправляет только контакты с текущим согласием."""
     selected = donors if selection == "all" else donors[:1]
-    donor_ids = (
-        None if selection == "all" else [donor.pk for donor in selected]
-    )
+    donor_ids = None if selection == "all" else [donor.pk for donor in selected]
 
     if consent_cleared:
         Donor.objects.filter(
