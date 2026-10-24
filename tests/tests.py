@@ -490,19 +490,6 @@ class SendPaymentEmailTest(UnisenderFixtureMixin, TestCase):
             self.email_request_fields,
         )
 
-    def test_sends_email_using_fetched_template(self) -> None:
-        """Письмо отправляется по шаблону, полученному из Unisender."""
-        send_payment_email(self.email, self.list_id)
-
-        self._assert_request_fields(
-            self.template_mock,
-            self.template_request_fields,
-        )
-        self._assert_request_fields(
-            self.email_mock,
-            self.email_request_fields,
-        )
-
 
 class SendRequestTest(UnisenderFixtureMixin, SimpleTestCase):
     """send_request: запрос экспорта контактов (exportContacts)."""
